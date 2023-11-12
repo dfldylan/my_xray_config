@@ -1,0 +1,30 @@
+{
+	"routing": {
+		"rules": [
+			{
+				"type": "field",
+				"domain": [
+					"domain:ustb.edu.cn",
+					"domain:ustb-ai3d.cn",
+					"domain:ibeike.com"
+				],
+				"outboundTag": "direct"
+			},
+			{
+				"type": "field",
+				"ip": [
+					"115.25.0.0/18",
+					"115.25.212.0/22",
+					"123.124.147.0/24",
+					"202.204.48.0/20",
+					"211.144.7.0/24",
+					"222.28.32.0/19",
+					"222.28.64.0/20",
+					"222.199.192.0/19",
+					"2001:da8:208::/48"
+				],
+				"outboundTag": "direct"
+			}
+		]
+	}
+}
