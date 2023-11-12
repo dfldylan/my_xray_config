@@ -1,0 +1,293 @@
+{
+	"routing": {
+		"domainStrategy": "IPIfNonMatch",
+		"rules": [
+			// {
+			// 	"type": "field",
+			// 	"inboundTag": [
+			// 		"in_direct"
+			// 	],
+			// 	"outboundTag": "direct"
+			// },
+			// {
+			// 	"type": "field",
+			// 	"inboundTag": [
+			// 		"in_gfw"
+			// 	],
+			// 	"balancerTag": "out_gfw"
+			// },
+			{
+				"type": "field",
+				"domain": [
+					"geosite:private"
+				],
+				"outboundTag": "direct"
+			},
+			{
+				"type": "field",
+				"ip": [
+					"geoip:private"
+				],
+				"outboundTag": "direct"
+			},
+			// 额外的内网信息
+			// {
+			// 	"type": "field",
+			// 	"inboundTag": [
+			// 		"in_lan"
+			// 	],
+			// 	"outboundTag": "block"
+			// },
+			{
+				"type": "field",
+				"port": 123,
+				"network": "udp",
+				"outboundTag": "direct"
+			},
+			// {
+			// 	"type": "field",
+			// 	"protocol": [
+			// 		"bittorrent"
+			// 	],
+			// 	"balancerTag": "out_cn"
+			// },
+			{
+				"type": "field", // 虽然在国内能直连，但是地区限制功能
+				"domain": [
+					"geosite:google",
+					"domain:bing.com",
+					"domain:openai.com"
+				],
+				"balancerTag": "out_gfw"
+			},
+			// 强制gfw
+			{
+				"type": "field",
+				"domain": [
+					"geosite:category-scholar-cn",
+					"geosite:category-scholar-!cn",
+				],
+				"balancerTag": "out_scholar"
+			},
+			{
+				"type": "field", // 在国内有服务器的外国企业
+				"domain": [
+					"geosite:apple-cn",
+					"geosite:google-cn",
+					"geosite:category-games@cn",
+					"geosite:tld-cn"
+				],
+				"balancerTag": "out_cn"
+			},
+			{
+				"type": "field",
+				"domain": [
+					"geosite:greatfire",
+					"geosite:gfw"
+				],
+				"balancerTag": "out_gfw"
+			},
+			{
+				"type": "field",
+				"ip": [
+					"geoip:cloudflare",
+					"geoip:cloudfront",
+					"geoip:facebook",
+					"geoip:fastly",
+					"geoip:google",
+					"geoip:netflix",
+					"geoip:telegram",
+					"geoip:twitter"
+				],
+				"balancerTag": "out_gfw"
+			},
+			{
+				"type": "field",
+				"network": "tcp,udp",
+				"balancerTag": "out_cn"
+			}
+		],
+		"balancers": [ // 改成后面的out_tag
+			{
+				"tag": "out_cn",
+				"selector": [
+					"cn0"
+				]
+			},
+			{
+				"tag": "out_gfw",
+				"selector": [
+					"gfw0"
+				]
+			},
+			{
+				"tag": "out_scholar",
+				"selector": [
+					"scholar0"
+				]
+			}
+		]
+	},
+	"inbounds": [
+		{
+			"tag": "transparent",
+			"port": 12345,
+			"protocol": "dokodemo-door",
+			"sniffing": {
+				"enabled": true,
+				"destOverride": [
+					"http",
+					"tls",
+					"quic"
+				]
+			},
+			"streamSettings": {
+				"sockopt": {
+					"tproxy": "tproxy"
+				}
+			},
+			"settings": {
+				"network": "tcp,udp",
+				"followRedirect": true
+			}
+		},
+		{
+			"tag": "in_routing",
+			"port": 1080,
+			"protocol": "socks",
+			"sniffing": {
+				"enabled": true,
+				"destOverride": [
+					"http",
+					"tls",
+					"quic"
+				]
+			},
+			"settings": {
+				"udp": true
+			}
+		}
+		// ,
+		// {
+		// 	"tag": "in_direct",
+		// 	"port": 10800,
+		// 	"protocol": "socks",
+		// 	"sniffing": {
+		// 		"enabled": true,
+		// 		"destOverride": [
+		// 			"http",
+		// 			"tls",
+		// 			"quic"
+		// 		]
+		// 	},
+		// 	"settings": {
+		// 		"udp": true
+		// 	}
+		// },
+		// {
+		// 	"tag": "in_lan",
+		// 	"port": 10808,
+		// 	"protocol": "socks",
+		// 	"sniffing": {
+		// 		"enabled": true,
+		// 		"destOverride": [
+		// 			"http",
+		// 			"tls",
+		// 			"quic"
+		// 		]
+		// 	},
+		// 	"settings": {
+		// 		"udp": true
+		// 	}
+		// },
+		// {
+		// 	"tag": "in_gfw",
+		// 	"port": 3128,
+		// 	"protocol": "http",
+		// 	"sniffing": {
+		// 		"enabled": true,
+		// 		"destOverride": [
+		// 			"http",
+		// 			"tls",
+		// 			"quic"
+		// 		]
+		// 	}
+		// },
+		// {
+		// 	"tag": "in_routing_http",
+		// 	"port": 31280,
+		// 	"protocol": "http",
+		// 	"sniffing": {
+		// 		"enabled": true,
+		// 		"destOverride": [
+		// 			"http",
+		// 			"tls",
+		// 			"quic"
+		// 		]
+		// 	}
+		// }
+	],
+	"outbounds": [
+		{
+			"tag": "direct",
+			"protocol": "freedom"
+		},
+		{
+			"tag": "out_vless",
+			"protocol": "vless",
+			"streamSettings": {
+				"security": "tls",
+				"tlsSettings": {
+					"allowInsecure": false,
+					"serverName": "yourdomain.domain", //改为你自己的域名
+					"fingerprint": "chrome"
+				}
+			},
+			"settings": {
+				"vnext": [
+					{
+						"address": "yourdomain.domain", //改为你自己的域名，直接填写ipv4或ipv6地址也可以
+						"port": 443,
+						"users": [
+							{
+								"id": "uuid", //填写uuid
+								"encryption": "none",
+								"flow": "xtls-rprx-vision-udp443"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"tag": "out_ss",
+			"protocol": "shadowsocks",
+			"settings": {
+				"servers": [
+					{
+						"address": "yourdomain.domain", //改为你自己的域名，直接填写ipv4或ipv6地址也可以
+						"port": ,
+						"method": "",
+						"password": ""
+					}
+				]
+			}
+		},
+		{
+			"tag": "out_socks",
+			"protocol": "socks",
+			"settings": {
+				"servers": [
+					{
+						"address": "", //改为你自己的域名，直接填写ipv4或ipv6地址也可以
+						"port": 1080
+					}
+				]
+			}
+		},
+		{
+			"tag": "block",
+			"protocol": "blackhole"
+		}
+	]
+}
