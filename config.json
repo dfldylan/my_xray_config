@@ -150,23 +150,6 @@
 				"followRedirect": true
 			}
 		},
-		{
-			"tag": "in_routing",
-			"port": 1080,
-			"protocol": "socks",
-			"sniffing": {
-				"enabled": true,
-				"destOverride": [
-					"http",
-					"tls",
-					"quic"
-				]
-			},
-			"settings": {
-				"udp": true
-			}
-		}
-		// ,
 		// {
 		// 	"tag": "in_direct",
 		// 	"port": 10800,
@@ -224,7 +207,23 @@
 		// 			"quic"
 		// 		]
 		// 	}
-		// }
+		// },
+		{
+			"tag": "in_routing",
+			"port": 1080,
+			"protocol": "socks",
+			"sniffing": {
+				"enabled": true,
+				"destOverride": [
+					"http",
+					"tls",
+					"quic"
+				]
+			},
+			"settings": {
+				"udp": true
+			}
+		}
 	],
 	"outbounds": [
 		{
