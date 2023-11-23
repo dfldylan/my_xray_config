@@ -287,5 +287,10 @@
 			"tag": "block",
 			"protocol": "blackhole"
 		}
-	]
+	],
+	"log": {
+		"access": "/var/log/Xray/access.log", //访问日志的文件地址
+		"error": "/var/log/Xray/error.log", //错误日志的文件地址
+		"loglevel": "warning"
+	}
 }
