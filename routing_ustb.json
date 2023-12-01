@@ -24,6 +24,43 @@
 					"2001:da8:208::/48"
 				],
 				"outboundTag": "direct"
+			},
+			{
+				"type": "field", // 免费流量代理
+				"domain": [
+					"geosite:category-netdisk-cn",
+					// bytedance
+					"domain:douyin.com",
+					"domain:douyincdn.com",
+					"domain:douyinliving.com",
+					"domain:douyinpic.com",
+					"domain:douyinstatic.com",
+					"domain:douyinvod.com",
+					"domain:huoshan.com",
+					"domain:huoshanstatic.com",
+					"domain:huoshanzhibo.com",
+					"domain:ixigua.com",
+					"domain:ixiguavideo.com",
+					"domain:ixgvideo.com",
+					"domain:bdxiguaimg.com",
+					"domain:bdxiguastatic.com",
+					// geolocation-cn: # Entertainment & Videos & Games & Music & Podcasts
+					"geosite:acfun",
+					"geosite:bilibili",
+					"geosite:douyu",
+					"geosite:gitv",
+					"geosite:huya",
+					"geosite:iqiyi",
+					"geosite:ku6",
+					"geosite:kuaishou",
+					"geosite:le",
+					"geosite:miaopai",
+					"geosite:pptv",
+					"geosite:youku",
+					"geosite:yy",
+					"geosite:zhanqi"
+				],
+				"balancerTag": "out_cn_free"
 			}
 		]
 	}
