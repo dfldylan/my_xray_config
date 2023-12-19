@@ -58,7 +58,9 @@
 					"geosite:pptv",
 					"geosite:youku",
 					"geosite:yy",
-					"geosite:zhanqi"
+					"geosite:zhanqi",
+					"domain:y.qq.com",
+					"domain:music.qq.com"
 				],
 				"balancerTag": "out_cn_free"
 			}
