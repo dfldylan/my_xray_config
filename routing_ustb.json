@@ -60,7 +60,8 @@
 					"geosite:yy",
 					"geosite:zhanqi",
 					"domain:y.qq.com",
-					"domain:music.qq.com"
+					"domain:music.qq.com",
+					"domain:qqmusic.qq.com"
 				],
 				"balancerTag": "out_cn_free"
 			}
