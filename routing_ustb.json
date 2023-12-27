@@ -1,12 +1,20 @@
 {
 	"routing": {
 		"rules": [
+			// {
+			// 	"type": "field",
+			// 	"inboundTag": [
+			// 		"in_cn_free"
+			// 	],
+			// 	"balancerTag": "out_cn_free"
+			// },
 			{
 				"type": "field",
 				"domain": [
 					"domain:ustb.edu.cn",
 					"domain:ustb-ai3d.cn",
-					"domain:ibeike.com"
+					"domain:ibeike.com",
+					"domain:inoteexpress.com"
 				],
 				"outboundTag": "direct"
 			},
