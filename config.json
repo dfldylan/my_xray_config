@@ -62,7 +62,8 @@
 				"domain": [
 					"geosite:google-scholar",
 					"geosite:bing",
-					"geosite:openai"
+					"geosite:openai",
+					"domain:huggingface.co"
 				],
 				"balancerTag": "out_gfw"
 			},
