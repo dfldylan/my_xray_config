@@ -10,6 +10,12 @@
 			// 	"outboundTag": "direct"
 			// },
 			// {
+			// 	"type": "field", // gfw_bak
+			// 	"domain": [
+			// 	],
+			// 	"balancerTag": "out_gfw_bak"
+			// },
+			// {
 			// 	"type": "field",
 			// 	"inboundTag": [
 			// 		"in_gfw"
@@ -50,12 +56,6 @@
 			// 		"bittorrent"
 			// 	],
 			// 	"balancerTag": "out_cn"
-			// },
-			// {
-			// 	"type": "field", // gfw_bak
-			// 	"domain": [
-			// 	],
-			// 	"balancerTag": "out_gfw_bak"
 			// },
 			{
 				"type": "field", // 强制gfw
